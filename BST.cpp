@@ -25,21 +25,6 @@ public:
         return root;
     }
 
-    void search(BST* root, int s) {
-        if (root == NULL) {
-            cout << "Employee not found!\n";
-            return;
-        }
-        if (root->salary == s) {
-            cout << "Employee found: " << root->name << " - " << root->salary << endl;
-            return;
-        }
-        if (s < root->salary) 
-            search(root->left, s);
-        else 
-            search(root->right, s);
-    }
-
     void display(BST* root) {
         if (root) {
             display(root->left);
@@ -68,9 +53,8 @@ int main() {
     do {
         cout << "\nEmployee Management System\n";
         cout << "1. Insert Employee\n";
-        cout << "2. Search Employee\n";
-        cout << "3. Display Employees\n";
-        cout << "4. Exit\n";
+        cout << "2. Display Employees\n";
+        cout << "3. Exit\n";
         cout << "Enter choice: ";
         cin >> ch;
 
@@ -83,22 +67,17 @@ int main() {
                 root = bst.insert(root, salary, name);
                 break;
             case 2:
-                cout << "Enter salary to search: ";
-                cin >> salary;
-                bst.search(root, salary);
-                break;
-            case 3:
                 cout << "\nEmployee List (sorted by salary):\n";
                 bst.display(root);
                 break;
-            case 4:
+            case 3:
                 bst.clearTree(root);
                 cout << "Exiting...\n";
                 break;
             default:
                 cout << "Invalid choice!\n";
         }
-    } while (ch != 4);
+    } while (ch != 3);
 
     return 0;
 }
