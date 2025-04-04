@@ -19,7 +19,8 @@ public:
         cin >> numEdges;
 
         for (int i = 0; i < numCities; i++) {
-            city[i] = '\0';  
+            cout << "Enter city " << i+1 << " name (single character): ";
+            cin >> city[i];
             visited[i] = false;
             parent[i] = -1;
             for (int j = 0; j < numCities; j++) {
@@ -29,27 +30,24 @@ public:
 
         cout << "Enter travel distances between cities (from to distance):\n";
         char from, to; 
-        int d, idx = 0;
+        int d;
         for (int i = 0; i < numEdges; i++) {
             cin >> from >> to >> d;
 
-            int x = getCityIndex(from, idx);
-            int y = getCityIndex(to, idx);
+            int x = -1, y = -1;
+            for (int j = 0; j < numCities; j++) {
+                if (city[j] == from) x = j;
+                if (city[j] == to) y = j;
+                if (x != -1 && y != -1) break;
+            }
 
-            dist[x][y] = d;
-            dist[y][x] = d;
+            if (x != -1 && y != -1) {
+                dist[x][y] = d;
+                dist[y][x] = d;
+            }
         }
 
         findMST();
-    }
-
-    int getCityIndex(char name, int &idx) {
-        for (int i = 0; i < idx; i++) {
-            if (city[i] == name)
-                return i;
-        }
-        city[idx] = name;
-        return idx++;
     }
 
     void findMST() {
